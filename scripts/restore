@@ -28,9 +28,6 @@ backup_dir=$YNH_BACKUP_DIR
 # Set the home of the user
 user_home="/home/$user"
 
-# Set the final path of the app
-final_path="$user_home/www"
-
 #=================================================
 # RESTORE THE APP
 #=================================================

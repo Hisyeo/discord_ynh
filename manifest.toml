@@ -15,9 +15,6 @@ yunohost = ">= 4.0.0"
 multi_instance = false
 services = [ "nginx" ]
 
-[resources.nodejs]
-version = "24.11.1"
-
 [install]
     [install.domain]
     type = "domain"
@@ -26,6 +23,29 @@ version = "24.11.1"
     type = "path"
     default = "/bot"
 
+    [install.with_sftp]
+    ask.en = "Do you need a SFTP access?"
+    ask.fr = "Avez-vous besoin d'un accès SFTP ?"
+    type = "boolean"
+    default = true
+
+    [install.password]
+    type = "password"
+    optional = true
+    help.en = "Optional, this corresponds to the password for SFTP access, if you enabled it"
+    help.fr = "Optionnel, corresponds au mot de passe pour l'accès SFTP, si vous l'avez activé"
+
     [install.init_main_permissions]
     type = "group"
     default = "visitors"
+
+[resources]
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.permissions]
+    main.url = "/" # WHAT DOES THIS DO?
+
+    [resources.nodejs]
+    version = "24.11.1"

@@ -1,0 +1,11 @@
+[Unit]
+Description=__APP_NAME__
+After=network.target
+
+[Service]
+User=__USER__
+Group=__USER__
+WorkingDirectory=__INSTALL_DIR__
+Environment=NODE_ENV=production PORT=__APP_PORT__
+ExecStart=__APP_LAUNCH_COMMAND__
+Restart=always

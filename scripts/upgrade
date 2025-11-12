@@ -1,25 +1,5 @@
 #!/bin/bash
 
-#=================================================
-# SCRIPT FOR MY_WEBAPP
-#
-# This script is a helper to upgrade a web application.
-#
-# It will update the application from the git repository.
-#
-# The script is intended to be used with the my_webapp package for YunoHost.
-#
-# Usage: sudo yunohost app upgrade my_webapp
-#
-#=================================================
-
-#=================================================
-# SET ALL THE THINGS
-#=================================================
-
-# Exit on error
-set -e
-
 # Get the arguments
 user=$YNH_APP_ARG_USER
 app_name=$YNH_APP_INSTANCE_NAME
@@ -27,36 +7,30 @@ app_repo=$YNH_APP_ARG_APP_REPO
 app_branch=$YNH_APP_ARG_APP_BRANCH
 app_commit=$YNH_APP_ARG_APP_COMMIT
 
-# Set the home of the user
-user_home="/home/$user"
-
-# Set the final path of the app
-final_path="$user_home/www"
-
 #=================================================
 # UPGRADE THE APP
 #=================================================
 
 # Update the repository
 if [ -n "$app_repo" ]; then
-    sudo git -C $final_path pull
+    sudo git -C $install_dir pull
     if [ -n "$app_branch" ]; then
-        sudo git -C $final_path checkout $app_branch
+        sudo git -C $install_dir checkout $app_branch
     fi
     if [ -n "$app_commit" ]; then
-        sudo git -C $final_path checkout $app_commit
+        sudo git -C $install_dir checkout $app_commit
     fi
 else
-    # If no repo is provided, we copy the content of the current directory
-    sudo cp -r . $final_path
+    # If no repo is provided, we assume the head of the Hisyeo bot main branch
+    sudo git clone https://github.com/Hisyeo/DiscordBot.git $install_dir
 fi
 
 # Set the owner of the app
-sudo chown -R $user:$user $final_path
+sudo chown -R $user:$user $install_dir
 
 # Install the dependencies
-if [ -f "$final_path/package.json" ]; then
-    sudo yunohost app shell $app_name --script "cd $final_path && npm install"
+if [ -f "$install_dir/package.json" ]; then
+    sudo yunohost app shell $app_name --script "cd $install_dir && npm install"
 fi
 
 #=================================================

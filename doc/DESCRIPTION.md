@@ -1,0 +1,1 @@
+This application allows you to run the Hîsyêô Discord bot from yunohost.
