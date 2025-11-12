@@ -1,0 +1,31 @@
+packaging_format = 2
+id = "hisyeo-discord-bot"
+name = "Hîsyêô Discord Bot"
+description = "A Discord bot for the Hîsyêô language"
+maintainers = "MadcapJake"
+version = "0.1.0"
+
+[upstream]
+license = "MIT"
+website = "https://hisyeo.github.io"
+code = "https://github.com/Hisyeo/DiscordBot"
+
+[integration]
+yunohost = ">= 4.0.0"
+multi_instance = false
+services = [ "nginx" ]
+
+[resources.nodejs]
+version = "24.11.1"
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/bot"
+
+    [install.init_main_permissions]
+    type = "group"
+    default = "visitors"
